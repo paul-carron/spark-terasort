@@ -34,7 +34,7 @@ object TeraValidate {
 
   def main(args: Array[String]) {
 
-    if (args.length < 1) {
+    if (args.length < 3) {
       println("Usage:")
       println("DRIVER_MEMORY=[mem] spark-submit " +
         "com.github.ehiggs.spark.terasort.TeraValidate " +
@@ -51,10 +51,12 @@ object TeraValidate {
 
     // Process command line arguments
     val inputFile = args(0)
+    val outputFile = args(1)
+    val uuId = args(2)
 
     val conf = new SparkConf()
       .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-      .setAppName(s"TeraValidate")
+      .setAppName(s"TeraValidate $uuId")
     val sc = new SparkContext(conf)
 
     val dataset = sc.newAPIHadoopFile[Array[Byte], Array[Byte], TeraInputFormat](inputFile)

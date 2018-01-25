@@ -51,10 +51,11 @@ object TeraSort {
     // Process command line arguments
     val inputFile = args(0)
     val outputFile = args(1)
+    val uuId = args(2)
 
     val conf = new SparkConf()
       .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-      .setAppName(s"TeraSort")
+      .setAppName(s"TeraSort $uuId")
     val sc = new SparkContext(conf)
 
     val dataset = sc.newAPIHadoopFile[Array[Byte], Array[Byte], TeraInputFormat](inputFile)

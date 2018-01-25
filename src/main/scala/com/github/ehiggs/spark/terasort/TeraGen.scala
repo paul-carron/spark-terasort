@@ -40,11 +40,12 @@ object TeraGen {
     // Process command line arguments
     val outputSizeInBytes = sizeStrToBytes(args(0))
     val outputFile = args(1)
+    val uuId = args(2)
 
     val size = sizeToSizeStr(outputSizeInBytes)
 
     val conf = new SparkConf()
-      .setAppName(s"TeraGen ($size)")
+      .setAppName(s"TeraGen ($size) $uuId")
     val sc = new SparkContext(conf)
 
     val parts = sc.defaultParallelism
@@ -53,6 +54,7 @@ object TeraGen {
 
     println("===========================================================================")
     println("===========================================================================")
+    println(s"App Name: $uuId")
     println(s"Input size: $size")
     println(s"Total number of records: $numRecords")
     println(s"Number of output partitions: $parts")
